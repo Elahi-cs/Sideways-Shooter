@@ -4,10 +4,10 @@ import random
 
 class Alien(Sprite):
     """Class and assets for the alien enemies."""
-    def __init__(self, ai_game):
+    def __init__(self, ss_game):
         super().__init__()
-        self.screen = ai_game.screen
-        self.settings = ai_game.settings
+        self.screen = ss_game.screen
+        self.settings = ss_game.settings
         self.image = pygame.image.load('images/alien.bmp')
         self.image = pygame.transform.scale(self.image, (103, 69))
         self.rect = self.image.get_rect()
@@ -20,9 +20,8 @@ class Alien(Sprite):
         self.x = float(self.rect.x)
 
     def update(self):
-        self.drop_speed = random.uniform(0.5, 1.0)
         # Update the decimal position of the alien
-        self.x -= self.drop_speed
+        self.x -= self.settings.alien_speed
         # Update the rect position
         self.rect.x = self.x
         self.rect.y = self.y

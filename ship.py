@@ -1,13 +1,15 @@
 import pygame
+from pygame.sprite import Sprite
 
-class Ship:
+class Ship(Sprite):
     """A movin' ship with all its movin' parts an' stuff."""
 
-    def __init__(self, ai_game):
+    def __init__(self, ss_game):
         """Initialize the ship and set where it starts."""
-        self.screen = ai_game.screen
-        self.settings = ai_game.settings
-        self.screen_rect = ai_game.screen.get_rect()
+        super().__init__()
+        self.screen = ss_game.screen
+        self.settings = ss_game.settings
+        self.screen_rect = ss_game.screen.get_rect()
 
         # Load the ship image and get its rect.
         self.image = pygame.image.load('images/ship.bmp')
@@ -28,7 +30,8 @@ class Ship:
     def update(self):
         """Update the ship's position based on movement flags."""
         # Update the ship's y value, not the rect. #it was converted to float
-        if self.moving_up and self.rect.y >= self.screen_rect.top:
+        if self.moving_up and self.rect.y >= (self.screen_rect.top +
+                self.rect.height + 20):
             self.y -= self.settings.ship_speed
         if self.moving_down and self.rect.bottom <= self.screen_rect.bottom:
             self.y += self.settings.ship_speed
